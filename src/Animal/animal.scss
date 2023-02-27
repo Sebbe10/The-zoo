@@ -1,0 +1,44 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+header {
+  height: 20vh;
+  background: lightblue;
+}
+
+.text {
+  font-size: 60px;
+}
+
+.djurlayout {
+  text-align: center;
+}
+
+h4 {
+  font-size: 40px;
+}
+
+button {
+  cursor: pointer;
+  font-size: 30px;
+}
+
+img {
+  display: flex;
+  margin: auto;
+  width: 500px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.shortdesc {
+  color: gray;
+  font-size: 25px;
+}
+
+.longdesc {
+  margin: auto;
+  width: 50%;
+}

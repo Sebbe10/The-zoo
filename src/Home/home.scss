@@ -1,0 +1,33 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+header {
+  height: 20vh;
+  background: lightblue;
+}
+
+h1 {
+  font-size: 60px;
+  padding: 20px 60px;
+}
+
+ul {
+  display: flex;
+  justify-content: end;
+  gap: 20px;
+  list-style: none;
+  margin-top: -25px;
+}
+
+a {
+  text-decoration: none;
+  font-size: 30px;
+  color: black;
+}
+
+a:hover {
+  cursor: pointer;
+  color: gray;
+}
