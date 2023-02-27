@@ -3,11 +3,13 @@ import App from "./App";
 import { Animals } from "./Animal/animals";
 import { Home } from "./Home/home";
 import { Animal } from "./Animal/animal";
+import { Notfound } from "./components/notfound";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <Notfound />,
     children: [
       {
         path: "/",

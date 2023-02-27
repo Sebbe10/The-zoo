@@ -1,11 +1,6 @@
-import { isDisabled } from "@testing-library/user-event/dist/utils";
 import axios from "axios";
-import { time, timeStamp } from "console";
-import { timingSafeEqual } from "crypto";
-import { json } from "node:stream/consumers";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { idText } from "typescript";
 import { IAnimal } from "../models/IAnimal";
 import "./animal.scss";
 
@@ -28,16 +23,20 @@ export const Animal = () => {
     if (animal) return;
     oneAnimal();
 
-    // if (13.24){
-    //   else {
-    //     Date(2023-02-27)
-    //   }
-    // }
+    const rightNow = new Date();
+    const previousFeedTime = localStorage.getItem("Djur");
+    const previous = new Date(previousFeedTime as string);
+    if (previous.getHours() + 3 < rightNow.getHours()) {
+      setButtondisabled(true);
+    }
   });
 
   const Matadjuret = () => {
     localStorage.setItem(id as string, new Date().toString());
     setButtondisabled(true);
+    if (animal) {
+      setButtondisabled(animal.isFed);
+    }
   };
 
   return (
@@ -65,6 +64,7 @@ export const Animal = () => {
           Matadjuret
         </button>
       </div>
+      <div>{animal?.isFed && <p>Matat</p>}</div>
     </>
   );
 };
