@@ -16,6 +16,10 @@ header {
   text-align: center;
 }
 
+h1 {
+  margin-bottom: -21px;
+}
+
 h4 {
   font-size: 40px;
 }
@@ -30,7 +34,6 @@ img {
   margin: auto;
   width: 500px;
   border-radius: 5px;
-  margin-top: 10px;
 }
 
 .shortdesc {
@@ -40,5 +43,11 @@ img {
 
 .longdesc {
   margin: auto;
-  width: 50%;
+  width: 70%;
+}
+
+.mat {
+  font-size: 35px;
+  color: green;
+  text-align: center;
 }

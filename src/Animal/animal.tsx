@@ -27,7 +27,7 @@ export const Animal = () => {
     const previousFeedTime = localStorage.getItem("Djur");
     const previous = new Date(previousFeedTime as string);
     if (previous.getHours() + 3 < rightNow.getHours()) {
-      setButtondisabled(true);
+      // setButtondisabled(true);
     }
   });
 
@@ -35,7 +35,7 @@ export const Animal = () => {
     localStorage.setItem(id as string, new Date().toString());
     setButtondisabled(true);
     if (animal) {
-      setButtondisabled(animal.isFed);
+      setButtondisabled((animal.isFed = true));
     }
   };
 
@@ -56,7 +56,7 @@ export const Animal = () => {
       </header>
       <div className="djurlayout">
         <h1>{animal?.name}</h1>
-        <img src={animal?.imageUrl} />
+        <img src={animal?.imageUrl} alt={animal?.name} />
         <p className="shortdesc">{animal?.shortDescription}</p>
         <p className="longdesc">{animal?.longDescription}</p>
         <h4>Djur: {id}</h4>
@@ -64,7 +64,7 @@ export const Animal = () => {
           Matadjuret
         </button>
       </div>
-      <div>{animal?.isFed && <p>Matat</p>}</div>
+      <div className="mat">{animal?.isFed && <p>Matat</p>}</div>
     </>
   );
 };
