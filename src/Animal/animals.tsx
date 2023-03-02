@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Productanimal } from "../components/productanimal";
 import { IAnimals } from "../models/IAnimals";
-import { Animal } from "./animal";
 import "./animals.scss";
 
 export const Animals = () => {

@@ -1,14 +1,16 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { IAnimal } from "../models/IAnimal";
 import "./animal.scss";
 
-export const Animal = () => {
-  const { id } = useParams();
+import { Link, useParams } from "react-router-dom";
+import { IAnimal } from "../models/IAnimal";
+
+function Animal() {
+  const [isFed, setIsFed] = useState(false);
+  // const [fedTime, setFedTime] = useState<IAnimal | null>(null);
   const [animal, setAnimal] = useState<IAnimal>();
 
-  const [buttondisabled, setButtondisabled] = useState(false);
+  let { id } = useParams();
 
   useEffect(() => {
     async function oneAnimal() {
@@ -16,28 +18,38 @@ export const Animal = () => {
         "https://animals.azurewebsites.net/api/animals/" + id
       );
 
-      console.log(response.data);
       setAnimal(response.data);
-    }
 
-    if (animal) return;
+      // Check on load of component, if animal is fed
+      const storedTime = localStorage.getItem("animal-1-feed"); // TODO: Same ID all the time now
+      if (storedTime === null) {
+        // Animal has never been fed
+      } else {
+        checkIfNeedsFood(storedTime);
+      }
+    }
+    if (isFed) return;
     oneAnimal();
+  }, []);
 
+  function checkIfNeedsFood(lastFed: string) {
+    const lastFedDate = new Date(lastFed);
     const rightNow = new Date();
-    const previousFeedTime = localStorage.getItem("Djur");
-    const previous = new Date(previousFeedTime as string);
-    if (previous.getHours() + 3 < rightNow.getHours()) {
-      // setButtondisabled(true);
-    }
-  });
 
-  const Matadjuret = () => {
-    localStorage.setItem(id as string, new Date().toString());
-    setButtondisabled(true);
-    if (animal) {
-      setButtondisabled((animal.isFed = true));
+    // TODO - Handle if day has changed too
+    // tip: https://bfy.tw/TsVk
+    if (lastFedDate.getHours() + 3 < rightNow.getHours()) {
+      // Time to feed again
+      setIsFed(false);
+    } else {
+      setIsFed(true);
     }
-  };
+  }
+
+  function feedAnimal() {
+    setIsFed(true);
+    localStorage.setItem("animal-1-feed", new Date().toString()); // TODO: Same ID all the time now
+  }
 
   return (
     <>
@@ -59,12 +71,13 @@ export const Animal = () => {
         <img src={animal?.imageUrl} alt={animal?.name} />
         <p className="shortdesc">{animal?.shortDescription}</p>
         <p className="longdesc">{animal?.longDescription}</p>
-        <h4>Djur: {id}</h4>
-        <button disabled={buttondisabled} onClick={Matadjuret}>
-          Matadjuret
+        <h4>Djur: {animal?.id}</h4>
+        <button onClick={feedAnimal} disabled={isFed}>
+          Mata
         </button>
       </div>
-      <div className="mat">{animal?.isFed && <p>Matat</p>}</div>
     </>
   );
-};
+}
+
+export default Animal;
