@@ -20,10 +20,8 @@ function Animal() {
 
       setAnimal(response.data);
 
-      // Check on load of component, if animal is fed
-      const storedTime = localStorage.getItem("animal-1-feed"); // TODO: Same ID all the time now
+      const storedTime = localStorage.getItem(`${id}`);
       if (storedTime === null) {
-        // Animal has never been fed
       } else {
         checkIfNeedsFood(storedTime);
       }
@@ -36,10 +34,7 @@ function Animal() {
     const lastFedDate = new Date(lastFed);
     const rightNow = new Date();
 
-    // TODO - Handle if day has changed too
-    // tip: https://bfy.tw/TsVk
     if (lastFedDate.getHours() + 3 < rightNow.getHours()) {
-      // Time to feed again
       setIsFed(false);
     } else {
       setIsFed(true);
@@ -48,7 +43,9 @@ function Animal() {
 
   function feedAnimal() {
     setIsFed(true);
-    localStorage.setItem("animal-1-feed", new Date().toString()); // TODO: Same ID all the time now
+
+    localStorage.setItem(`${id}`, new Date().toString());
+    console.log(`animal-${id}-feed`);
   }
 
   return (
