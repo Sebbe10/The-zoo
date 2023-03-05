@@ -15,7 +15,7 @@ function Animal() {
   useEffect(() => {
     async function oneAnimal() {
       let response = await axios.get(
-        "https://animals.azurewebsites.net/api/animals/" + id
+        "https://animals.azurewebsites.net/api/animals/" + i
       );
 
       setAnimal(response.data);
